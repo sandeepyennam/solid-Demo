@@ -1,0 +1,101 @@
+public class collegeDemo {
+
+    //This is an interface which is an abstraction between Regestration class and feePayement class.Dependency Inversion.Hifh level module do not depend on low level module
+
+    public interface FR
+    {
+        public int due;
+        public String studentname;
+        public String branch;
+        public int feePaid;
+        public void feePay(String studentname,String branch,int feePaid);
+
+    }
+
+
+
+    // craeted seperate class for payemnt and regestration. sigle responsibility is satisfied
+    public class feePayement implements FR
+    {
+        public String studentname;
+        public String branch;
+        public int totalFee;
+        public int due;
+
+        public feePayement(String studentname,String branch)
+        {
+            this.studentname=studentname;
+            this.branch=branch
+
+        }
+        public void feePay(String studentname,String branch,int feePaid)
+        {
+            due=totalFee-feePaid;
+            if(due==0)
+                System.out.println("Your fee payment is completely done");
+            else
+                System.out.println("you have paid amount of "+feePaid+"your due is"+due);
+
+        }
+
+    }
+
+  //here,base class feePayemnt object is replaced by the derived class FR,withou giving any exception.so it is Liskov substitution priciple.
+
+    public class Regestration
+    {
+
+        FR fee=new FR();
+        public Regestration(String studentname,String branch,int feePaid)
+        {
+            fee.feePay(studentname,branch,feePaid);
+            if(fee.due>50000)
+                System.out.println("please pay atleast half amount to be registered");
+            else
+                System.out.println("you have successfully registered");
+        }
+
+    }
+
+
+    //Here , there are different courses for different branches.so interface courses is segregated.Interface segregation is achieved
+    interface datastructures
+    {
+            System.out.println("you are in DS module");
+    }
+    interface python
+    {
+                       System.out.println("you are in python module");
+
+    }
+    interface fluidMachanics
+    {
+                        System.out.println("you are in fM module");
+
+    }
+    interface costAnalysis
+    {
+                       System.out.println("you are in costAnalysis module");
+
+    }
+
+    class cse implements datastructures,python
+    {
+        System.out.println("these are the courses for cse students);
+
+    }
+    class mechanical implements fluidMachanics
+    {
+        System.out.println("these are the courses for mech students);
+
+    }
+    class civil implements costAnalysis
+    {
+        System.out.println("these are the courses for civil students);
+
+    }
+
+
+
+}
+
